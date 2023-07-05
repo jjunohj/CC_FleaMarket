@@ -16,6 +16,11 @@ export const Wrapper = styled.div`
   box-shadow: 0px 0px 10px gray;
 `;
 
+export const TitleWrapper = styled.div`
+  width: 100%;
+  padding-top: 80px;
+`;
+
 export const Title = styled.div`
   font-family: Arial, Helvetica, sans-serif;
   font-size: 36px;
@@ -23,22 +28,22 @@ export const Title = styled.div`
 `;
 
 export const WriterWrapper = styled.div`
-  width: 100%;
+  width: 1016px;
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: space-between;
   padding-top: 40px;
 `;
 
 export const Writer = styled.input`
-  width: 486px;
+  width: 472px;
   height: 52px;
   padding-left: 16px;
   border: 1px solid #bdbdbd;
 `;
 
 export const Password = styled.input`
-  width: 486px;
+  width: 472px;
   height: 52px;
   padding-left: 16px;
   border: 1px solid #bdbdbd;
@@ -59,6 +64,11 @@ export const Subject = styled.input`
   height: 52px;
   padding-left: 16px;
   border: 1px solid #bdbdbd;
+`;
+
+export const ContentsWrapper = styled.div`
+  width: 100%;
+  padding-top: 40px;
 `;
 
 export const Contents = styled.textarea`
@@ -180,3 +190,5 @@ export const Error = styled.div`
   font-size: 14px;
   color: red;
 `;
+
+/*---------------------------------*/

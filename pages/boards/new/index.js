@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { gql, useMutation } from "@apollo/client";
+import { useRouter } from "next/router";
+import { useForm } from "react-hook-form";
 
 import {
   Address,
@@ -26,19 +28,23 @@ import {
   ZipcodeWrapper,
   Error,
 } from "../../../styles/emotion";
-import { clearPreviewData } from "next/dist/server/api-utils";
 
 const CREATE_BOARD = gql`
-  mutation createBoard($writer: String, $title: String, $contents: String) {
-    createBoard(writer: $writer, title: $title, contents: $contents) {
+  mutation createBoard($createBoardInput: CreateBoardInput!) {
+    createBoard(createBoardInput: $createBoardInput) {
       _id
-      number
-      message
     }
   }
 `;
 
 export default function BoardWriteUI() {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+    setValue,
+  } = useForm();
+  const router = useRouter();
   const [writer, setWriter] = useState("");
   const [password, setPassword] = useState("");
   const [title, setTitle] = useState("");
@@ -81,15 +87,25 @@ export default function BoardWriteUI() {
       setContentsError("내용을 입력해주세요.");
     }
     if (writer && password && title && contents) {
-      const result = await createBoard({
-        variables: {
-          writer: writer,
-          title: title,
-          contents: contents,
-        },
-      });
-      console.log(result);
-      alert(result.data.createBoard.message);
+      try {
+        const result = await createBoard({
+          variables: {
+            createBoardInput: {
+              //key와 value가 같으면 value 생략 가능, shorthand-property
+              writer,
+              password,
+              title,
+              contents,
+            },
+          },
+        });
+        // 서버로부터 받아온 생성된 게시글, result의 data.createBoard._id값으로 이동
+        console.log(result.data.createBoard._id);
+        // 하지만 result.data.createBoard._id로 된 폴더가 없다. 이럴때는 대괄호 폴더로 동적 라우팅된다.
+        router.push(`/boards/${result.data.createBoard._id}`);
+      } catch (error) {
+        alert(error.message);
+      }
     }
   };
 
@@ -100,6 +116,7 @@ export default function BoardWriteUI() {
         <InputWrapper>
           <Label>작성자</Label>
           <Writer
+            {...register("writer", { required: true })}
             type="text"
             placeholder="이름을 적어주세요."
             onChange={onChangeWriter}
@@ -109,6 +126,7 @@ export default function BoardWriteUI() {
         <InputWrapper>
           <Label>비밀번호</Label>
           <Password
+            {...register("password", { required: true })}
             type="password"
             placeholder="비밀번호를 작성해주세요."
             onChange={onChangePassword}
@@ -119,6 +137,7 @@ export default function BoardWriteUI() {
       <InputWrapper>
         <Label>제목</Label>
         <Subject
+          {...register("title", { required: true })}
           type="text"
           placeholder="제목을 작성해주세요."
           onChange={onChangeTitle}
@@ -128,6 +147,7 @@ export default function BoardWriteUI() {
       <InputWrapper>
         <Label>내용</Label>
         <Contents
+          {...register("contents", { required: true })}
           placeholder="내용을 작성해주세요."
           onChange={onChangeContents}
         />
@@ -150,9 +170,15 @@ export default function BoardWriteUI() {
       </InputWrapper>
       <ImageWrapper>
         <Label>사진첨부</Label>
-        <UploadButton>+</UploadButton>
-        <UploadButton>+</UploadButton>
-        <UploadButton>+</UploadButton>
+        <UploadButton>
+          + <br /> Upload
+        </UploadButton>
+        <UploadButton>
+          + <br /> Upload
+        </UploadButton>
+        <UploadButton>
+          + <br /> Upload
+        </UploadButton>
       </ImageWrapper>
       <OptionWrapper>
         <Label>메인설정</Label>
@@ -162,7 +188,9 @@ export default function BoardWriteUI() {
         <RadioLabel htmlFor="image">사진</RadioLabel>
       </OptionWrapper>
       <ButtonWrapper>
-        <SubmitButton onClick={onClickSubmit}>등록하기</SubmitButton>
+        <SubmitButton onClick={handleSubmit(onClickSubmit)}>
+          등록하기
+        </SubmitButton>
       </ButtonWrapper>
     </Wrapper>
   );
