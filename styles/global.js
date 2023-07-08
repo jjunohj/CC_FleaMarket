@@ -8,6 +8,7 @@ export const colors = {
   white: "#FFFFFF",
   black: "#000000",
   gray_1: "#F5F5F5",
+  gray_4: "#BDBDBD",
   default: "#999999",
 };
 
@@ -28,6 +29,8 @@ export function Flex({ children }) {
     <div
       css={{
         display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
       }}
     >
       {children}
@@ -148,8 +151,8 @@ export function Line({ width, height, color }) {
   return (
     <div
       css={{
-        width: calcRem(width),
-        height: calcRem(height),
+        width: width,
+        height: height,
         backgroundColor: colors[color],
       }}
     />

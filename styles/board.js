@@ -1,13 +1,14 @@
 /** @jsxImportSource @emotion/react */
 
 import { css } from "@emotion/react";
-import { colors, calcRem } from "./global";
+import { colors, calcRem, fontSizes } from "./global";
 
 export function BoardWrapper({ children }) {
   return (
     <div
       css={{
-        width: "70rem",
+        boxSizing: "border-box",
+        width: "75rem",
         minHeight: "80rem",
         border: "1px solid black",
         display: "flex",
@@ -28,7 +29,7 @@ export function BoardTop({ children }) {
   return (
     <div
       css={{
-        width: "70rem",
+        width: "100%",
         height: "6rem",
         display: "flex",
         justifyContent: "space-between",
@@ -196,6 +197,7 @@ export function BoardBottomLikes({ likes, unlikes }) {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
+        marginTop: "3rem",
       }}
     >
       <img
@@ -239,6 +241,46 @@ export function BoardBottomLikes({ likes, unlikes }) {
       >
         {unlikes}
       </div>
+    </div>
+  );
+}
+
+export function BoardButton({ children }) {
+  return (
+    <button
+      css={{
+        width: "12rem",
+        height: "3rem",
+        padding: "0.875rem 3.75rem",
+        margin: "0rem 1.5rem",
+        justifyContent: "center",
+        alignItems: "center",
+        backgroundColor: colors.white,
+        color: colors.black,
+        fontFamily: "Noto Sans CJK KR",
+        fontSize: "1rem",
+        fontWeight: "500",
+        border: "1px solid #BDBDBD",
+        cursor: "pointer",
+      }}
+    >
+      {children}
+    </button>
+  );
+}
+
+export function BoardButtonContainer({ children }) {
+  return (
+    <div
+      css={{
+        width: "100%",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        margin: "2.5rem 0rem 6rem 0rem",
+      }}
+    >
+      {children}
     </div>
   );
 }
