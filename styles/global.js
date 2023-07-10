@@ -1,6 +1,6 @@
 /** @jsxImportSource @emotion/react */
 
-import { css } from "@emotion/react";
+import { Global, css } from "@emotion/react";
 export const calcRem = (px) => `${px / 16}rem`;
 
 export const colors = {
@@ -8,6 +8,8 @@ export const colors = {
   white: "#FFFFFF",
   black: "#000000",
   gray_1: "#F5F5F5",
+  gray_2: "#E0E0E0",
+  gray_3: "#9E9E9E",
   gray_4: "#BDBDBD",
   default: "#999999",
 };
@@ -23,6 +25,37 @@ export const fontSizes = {
   titleLarge: calcRem(36),
   titleXlarge: calcRem(48),
 };
+
+const style = css`
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+    font-family: "Noto Sans CJK KR";
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 1.5;
+    color: ${colors.black};
+    width: 100%;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  select,
+  input,
+  button {
+    font-family: "Noto Sans CJK KR";
+    border: none;
+    outline: none;
+  }
+`;
+
+export function GlobalStyle() {
+  return <Global styles={style} />;
+}
 
 export function Flex({ children }) {
   return (
