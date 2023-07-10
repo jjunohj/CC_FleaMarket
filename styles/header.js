@@ -26,6 +26,7 @@ export function HeaderTop({ children }) {
   return (
     <div
       css={{
+        boxSizing: "border-box",
         width: calcRem(1920),
         padding: "3.5rem 22.5rem",
         margin: "0 auto",
