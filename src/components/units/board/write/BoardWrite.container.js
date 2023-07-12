@@ -1,10 +1,12 @@
-export default function BoardWriteUI() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    setValue,
-  } = useForm();
+import { useState } from "react";
+import { useRouter } from "next/router";
+import { useForm } from "react-hook-form";
+import { useMutation } from "@apollo/client";
+import BoardWriteUI from "./BoardWrite.presenter";
+import { CREATE_BOARD } from "./BoardWrite.queries";
+
+export default function BoardWrite() {
+  const { register, handleSubmit, setValue } = useForm();
 
   const router = useRouter();
   const [writer, setWriter] = useState("");
@@ -73,6 +75,9 @@ export default function BoardWriteUI() {
 
   return (
     <BoardWriteUI
+      register={register}
+      handleSubmit={handleSubmit}
+      setValue={setValue}
       writerError={writerError}
       passwordError={passwordError}
       titleError={titleError}
