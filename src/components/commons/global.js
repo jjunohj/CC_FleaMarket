@@ -6,6 +6,7 @@ export const calcRem = (px) => `${px / 16}rem`;
 export const colors = {
   main: "#FFD600",
   white: "#FFFFFF",
+  blue: "#1976D2",
   black: "#000000",
   gray_1: "#F5F5F5",
   gray_2: "#E0E0E0",
