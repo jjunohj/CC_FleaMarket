@@ -1,18 +1,12 @@
 import styled from "@emotion/styled";
+import { colors } from "../../../commons/global";
 
 export const Wrapper = styled.div`
-  width: 1920px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
-
-export const CardWrapper = styled.div`
   width: 1200px;
   /* height: 1847px; */
   border: 1px solid black;
   margin: 100px;
-  padding-top: 60px;
+  padding-top: 80px;
   padding-bottom: 100px;
   padding-left: 102px;
   padding-right: 102px;
@@ -23,11 +17,6 @@ export const CardWrapper = styled.div`
   box-shadow: 0px 0px 10px gray;
 `;
 
-export const TitleWrapper = styled.div`
-  width: 100%;
-  padding-top: 80px;
-`;
-
 export const Title = styled.div`
   font-family: Arial, Helvetica, sans-serif;
   font-size: 36px;
@@ -35,7 +24,7 @@ export const Title = styled.div`
 `;
 
 export const WriterWrapper = styled.div`
-  width: 1016px;
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -43,14 +32,14 @@ export const WriterWrapper = styled.div`
 `;
 
 export const Writer = styled.input`
-  width: 472px;
+  width: 486px;
   height: 52px;
   padding-left: 16px;
   border: 1px solid #bdbdbd;
 `;
 
 export const Password = styled.input`
-  width: 472px;
+  width: 486px;
   height: 52px;
   padding-left: 16px;
   border: 1px solid #bdbdbd;
@@ -71,11 +60,6 @@ export const Subject = styled.input`
   height: 52px;
   padding-left: 16px;
   border: 1px solid #bdbdbd;
-`;
-
-export const ContentsWrapper = styled.div`
-  width: 100%;
-  padding-top: 40px;
 `;
 
 export const Contents = styled.textarea`
@@ -105,13 +89,6 @@ export const SearchButton = styled.button`
   background-color: black;
   cursor: pointer;
   color: white;
-`;
-
-export const AddressWrapper = styled.div`
-  width: 996px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 `;
 
 export const Address = styled.input`
@@ -189,7 +166,8 @@ export const SubmitButton = styled.button`
   margin-right: 12px;
   cursor: pointer;
 
-  background-color: yellow;
+  background-color: ${(props) =>
+    props.isActive ? colors.main : colors.default};
 `;
 
 export const Error = styled.div`

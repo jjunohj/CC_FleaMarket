@@ -1,14 +1,13 @@
 import { useState } from "react";
 import { useRouter } from "next/router";
-import { useForm } from "react-hook-form";
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import BoardWriteUI from "./BoardWrite.presenter";
-import { CREATE_BOARD } from "./BoardWrite.queries";
+import { CREATE_BOARD, UPDATE_BOARD } from "./BoardWrite.queries";
 
-export default function BoardWrite() {
-  const { register, handleSubmit, setValue } = useForm();
-
+export default function BoardWrite(props) {
   const router = useRouter();
+  const [isActive, setIsActive] = useState(false);
+
   const [writer, setWriter] = useState("");
   const [password, setPassword] = useState("");
   const [title, setTitle] = useState("");
@@ -20,21 +19,58 @@ export default function BoardWrite() {
   const [contentsError, setContentsError] = useState("");
 
   const [createBoard] = useMutation(CREATE_BOARD);
+  const [updateBoard] = useMutation(UPDATE_BOARD);
 
   const onChangeWriter = (event) => {
     setWriter(event.target.value);
+    if (event.target.value !== "") {
+      setWriterError("");
+    }
+
+    if (event.target.value && password && title && contents) {
+      setIsActive(true);
+    } else {
+      setIsActive(false);
+    }
   };
 
   const onChangePassword = (event) => {
     setPassword(event.target.value);
+    if (event.target.value !== "") {
+      setPasswordError("");
+    }
+
+    if (writer && event.target.value && title && contents) {
+      setIsActive(true);
+    } else {
+      setIsActive(false);
+    }
   };
 
   const onChangeTitle = (event) => {
     setTitle(event.target.value);
+    if (event.target.value !== "") {
+      setTitleError("");
+    }
+
+    if (writer && password && event.target.value && contents) {
+      setIsActive(true);
+    } else {
+      setIsActive(false);
+    }
   };
 
   const onChangeContents = (event) => {
     setContents(event.target.value);
+    if (event.target.value !== "") {
+      setContentsError("");
+    }
+
+    if (writer && password && title && event.target.value) {
+      setIsActive(true);
+    } else {
+      setIsActive(false);
+    }
   };
 
   const onClickSubmit = async () => {
@@ -55,17 +91,14 @@ export default function BoardWrite() {
         const result = await createBoard({
           variables: {
             createBoardInput: {
-              //key와 value가 같으면 value 생략 가능, shorthand-property
-              writer,
-              password,
-              title,
-              contents,
+              writer: writer,
+              password: password,
+              title: title,
+              contents: contents,
             },
           },
         });
-        // 서버로부터 받아온 생성된 게시글, result의 data.createBoard._id값으로 이동
         console.log(result.data.createBoard._id);
-        // 하지만 result.data.createBoard._id로 된 폴더가 없다. 이럴때는 대괄호 폴더로 동적 라우팅된다.
         router.push(`/boards/${result.data.createBoard._id}`);
       } catch (error) {
         alert(error.message);
@@ -73,11 +106,25 @@ export default function BoardWrite() {
     }
   };
 
+  const onClickUpdate = async () => {
+    const updateVariables = {
+      boardId: router.query.boardId,
+      updateBoardInput: {},
+    };
+    if (password) updateVariables.password = password;
+    if (title) updateVariables.updateBoardInput.title = title;
+    if (contents) updateVariables.updateBoardInput.contents = contents;
+    const result = await updateBoard({
+      variables: updateVariables,
+    });
+    router.push(`/boards/${result.data.updateBoard._id}`);
+    console.log(result);
+  };
+
   return (
     <BoardWriteUI
-      register={register}
-      handleSubmit={handleSubmit}
-      setValue={setValue}
+      data={props.data}
+      isActive={isActive}
       writerError={writerError}
       passwordError={passwordError}
       titleError={titleError}
@@ -87,6 +134,8 @@ export default function BoardWrite() {
       onChangeTitle={onChangeTitle}
       onChangeContents={onChangeContents}
       onClickSubmit={onClickSubmit}
+      onClickUpdate={onClickUpdate}
+      isEdit={props.isEdit}
     />
   );
 }
