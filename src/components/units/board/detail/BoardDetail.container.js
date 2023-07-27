@@ -1,16 +1,41 @@
-import { useQuery } from "@apollo/client";
+import { useQuery, useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 import BoardDetailUI from "./BoardDetail.presenter";
-import { FETCH_BOARD } from "./BoardDetail.queries";
+import { FETCH_BOARD, DELETE_BOARD } from "./BoardDetail.queries";
 
 export default function BoardDetail() {
   const router = useRouter();
+  const [deleteBoard] = useMutation(DELETE_BOARD);
 
-  //data를 받아올 때까지 기다렸다가 실행하는 게 아니라, data가 없어도 일단 실행하고, data를 불러오면 한 번 더 실행한다.
-  const data = useQuery(FETCH_BOARD, {
-    // router.query.[boardId], 대괄호가 받은 게시글 Id를 쿼리로 가져온다.
+  const { data } = useQuery(FETCH_BOARD, {
     variables: { boardId: router.query.boardId },
   });
 
-  return <BoardDetailUI data={data} />;
+  const onClickMoveToBoardList = () => {
+    router.push("/boards");
+  };
+
+  const onClickMoveToBoardEdit = () => {
+    router.push(`/boards/${router.query.boardId}/edit`);
+  };
+
+  const onClickDelete = async () => {
+    try {
+      await deleteBoard({
+        variables: { boardId: router.query.boardId },
+      });
+      router.push("/boards");
+    } catch (error) {
+      alert(error.message);
+    }
+  };
+
+  return (
+    <BoardDetailUI
+      data={data}
+      onClickMoveToBoardList={onClickMoveToBoardList}
+      onClickMoveToBoardEdit={onClickMoveToBoardEdit}
+      onClickDelete={onClickDelete}
+    />
+  );
 }

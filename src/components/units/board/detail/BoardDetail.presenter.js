@@ -1,38 +1,31 @@
+import { getDate } from "../../../../commons/utils/utils";
 import * as S from "./BoardDetail.styles";
 
 export default function BoardDetailUI(props) {
   return (
-    <S.BodyWrapper>
-      <S.BoardWrapper>
-        <S.BoardTop>
-          <S.BoardTopLeftWriterInfo
-            src="/profile_image.png"
-            writer={props.data.data?.fetchBoard.writer}
-            date={props.data.data?.fetchBoard.createdAt}
-          ></S.BoardTopLeftWriterInfo>
-          <S.BoardTopRightIcons>
-            <S.Icon src="/link.png" width="2rem" height="2rem" />
-            <S.Icon src="/location.png" width="2rem" height="2rem" />
-          </S.BoardTopRightIcons>
-        </S.BoardTop>
-        <S.BoardContentsTitle>
-          {props.data.data?.fetchBoard.title}
-        </S.BoardContentsTitle>
-        <S.BoardContentsImage src="/contents_image.svg" />
-        <S.BoardContentsText>
-          {props.data.data?.fetchBoard.contents}
-        </S.BoardContentsText>
-        <S.BoardBottom>
-          <S.BoardBottomBanner src="/contents_banner.png"></S.BoardBottomBanner>
-          <S.BoardBottomLikes likes="1920" unlikes="1920"></S.BoardBottomLikes>
-        </S.BoardBottom>
-      </S.BoardWrapper>
-      <S.BoardButtonContainer>
-        <S.BoardButton>목록으로</S.BoardButton>
-        <S.BoardButton>수정하기</S.BoardButton>
-        <S.BoardButton>삭제하기</S.BoardButton>
-      </S.BoardButtonContainer>
-      <S.Line width="75rem" height="1px" color="gray_4"></S.Line>
-    </S.BodyWrapper>
+    <S.Wrapper>
+      <S.CardWrapper>
+        <S.Header>
+          <S.AvatarWrapper>
+            <S.Avatar src="/images/avatar.png" />
+            <S.Info>
+              <S.Writer>{props.data?.fetchBoard?.writer}</S.Writer>
+              <S.CreatedAt>
+                {getDate(props.data?.fetchBoard?.createdAt)}
+              </S.CreatedAt>
+            </S.Info>
+          </S.AvatarWrapper>
+        </S.Header>
+        <S.Body>
+          <S.Title>{props.data?.fetchBoard?.title}</S.Title>
+          <S.Contents>{props.data?.fetchBoard?.contents}</S.Contents>
+        </S.Body>
+      </S.CardWrapper>
+      <S.BottomWrapper>
+        <S.Button onClick={props.onClickMoveToBoardList}>목록으로</S.Button>
+        <S.Button onClick={props.onClickMoveToBoardEdit}>수정하기</S.Button>
+        <S.Button onClick={props.onClickDelete}>삭제하기</S.Button>
+      </S.BottomWrapper>
+    </S.Wrapper>
   );
 }

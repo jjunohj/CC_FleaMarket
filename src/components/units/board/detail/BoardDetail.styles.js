@@ -1,327 +1,83 @@
-/** @jsxImportSource @emotion/react */
+import styled from "@emotion/styled";
 
-import { css } from "@emotion/react";
-import { colors, calcRem, fontSizes } from "../../../commons/global";
+export const Wrapper = styled.div`
+  width: 1200px;
+  margin: 100px;
+`;
 
-export function BodyWrapper({ children }) {
-  return (
-    <div
-      css={{
-        width: calcRem(1920),
-        minHeight: calcRem(600),
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-      }}
-    >
-      {children}
-    </div>
-  );
-}
+export const CardWrapper = styled.div`
+  border: 1px solid black;
+  padding-top: 80px;
+  padding-bottom: 100px;
+  padding-left: 102px;
+  padding-right: 102px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border: none;
+  box-shadow: 0px 0px 10px gray;
+`;
 
-export function BoardWrapper({ children }) {
-  return (
-    <div
-      css={{
-        width: "75rem",
-        minHeight: "80rem",
-        border: "1px solid black",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        margin: "3.5rem",
-        padding: "6rem 6.5rem 6.5rem 6.5rem",
-        border: "none",
-        boxShadow: "0px 4px 20px rgba(0, 0, 0, 0.2)",
-      }}
-    >
-      {children}
-    </div>
-  );
-}
+export const Header = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #bdbdbd;
+  padding-bottom: 20px;
+`;
 
-export function BoardTop({ children }) {
-  return (
-    <div
-      css={{
-        width: "100%",
-        height: "6rem",
-        display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        borderBottom: "1px solid #BDBDBD",
-      }}
-    >
-      {children}
-    </div>
-  );
-}
+export const AvatarWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+`;
 
-export function BoardTopLeftWriterInfo({ src, writer, date }) {
-  return (
-    <div
-      css={{
-        display: "flex",
-        alignItems: "center",
-      }}
-    >
-      <img
-        src={src}
-        css={{
-          width: "4rem",
-          height: "4rem",
-          borderRadius: "50%",
-          marginRight: "1rem",
-        }}
-      />
-      <div
-        css={{
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "flex-start",
-        }}
-      >
-        <div
-          css={{
-            fontSize: "1.5rem",
-            fontFamily: "Noto Sans CJK KR",
-            fontStyle: "normal",
-            fontWeight: "500",
-            lineHeight: "normal",
-            color: colors.black,
-          }}
-        >
-          {writer}
-        </div>
-        <div
-          css={{
-            fontSize: "1rem",
-            fontFamily: "Noto Sans CJK KR",
-            fontStyle: "normal",
-            fontWeight: "400",
-            lineHeight: "normal",
-            color: colors.gray,
-          }}
-        >
-          Date: {date}
-        </div>
-      </div>
-    </div>
-  );
-}
+export const Avatar = styled.img`
+  margin-right: 10px;
+`;
 
-export function BoardTopRightIcons({ children }) {
-  return (
-    <div
-      css={{
-        display: "flex",
-        alignItems: "center",
-      }}
-    >
-      {children}
-    </div>
-  );
-}
+export const Info = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+`;
 
-export function BoardContentsTitle({ children }) {
-  return (
-    <div
-      css={{
-        width: "100%",
-        display: "flex",
-        justifyContent: "start",
-        alignItems: "center",
-        fontSize: "2.5rem",
-        fontFamily: "Noto Sans CJK KR",
-        fontStyle: "normal",
-        fontWeight: "700",
-        lineHeight: "normal",
-        color: colors.black,
-        marginTop: "3rem",
-        marginBottom: "3rem",
-      }}
-    >
-      {children}
-    </div>
-  );
-}
+export const Writer = styled.div``;
 
-export function BoardContentsImage({ src }) {
-  return (
-    <img
-      src={src}
-      css={{
-        width: "100%",
-      }}
-    />
-  );
-}
+export const CreatedAt = styled.div``;
 
-export function BoardContentsText({ children }) {
-  return (
-    <div
-      css={{
-        width: "100%",
-        fontSize: "1.5rem",
-        fontFamily: "Noto Sans CJK KR",
-        fontStyle: "normal",
-        fontWeight: "400",
-        lineHeight: "normal",
-        color: colors.black,
-        marginTop: "3rem",
-        marginBottom: "3rem",
-      }}
-    >
-      {children}
-    </div>
-  );
-}
+export const Body = styled.div`
+  width: 100%;
+  min-height: 800px;
+`;
 
-export function BoardBottom({ children }) {
-  return (
-    <div
-      css={{
-        width: "100%",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        marginTop: "3rem",
-      }}
-    >
-      {children}
-    </div>
-  );
-}
-export function BoardBottomBanner({ src }) {
-  return (
-    <img
-      src={src}
-      css={{
-        width: "40rem",
-      }}
-    />
-  );
-}
-export function BoardBottomLikes({ likes, unlikes }) {
-  return (
-    <div
-      css={{
-        width: "100%",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        marginTop: "3rem",
-      }}
-    >
-      <img
-        src="/thumb_up.svg"
-        css={{
-          width: "2rem",
-          height: "2rem",
-          marginRight: "1rem",
-        }}
-      />
-      <div
-        css={{
-          fontSize: "1.5rem",
-          fontFamily: "Noto Sans CJK KR",
-          fontStyle: "normal",
-          fontWeight: "400",
-          lineHeight: "normal",
-          color: colors.main,
-          marginRight: "3rem",
-        }}
-      >
-        {likes}
-      </div>
-      <img
-        src="/thumb_down.svg"
-        css={{
-          width: "2rem",
-          height: "2rem",
-          marginRight: "1rem",
-        }}
-      />
-      <div
-        css={{
-          fontSize: "1.5rem",
-          fontFamily: "Noto Sans CJK KR",
-          fontStyle: "normal",
-          fontWeight: "400",
-          lineHeight: "normal",
-          color: colors.black,
-        }}
-      >
-        {unlikes}
-      </div>
-    </div>
-  );
-}
+export const Title = styled.h1`
+  padding-top: 80px;
+`;
 
-export function BoardButton({ children }) {
-  return (
-    <button
-      css={{
-        width: "12rem",
-        height: "3rem",
-        padding: "0.875rem 3.75rem",
-        margin: "0rem 1.5rem",
-        justifyContent: "center",
-        alignItems: "center",
-        backgroundColor: colors.white,
-        color: colors.black,
-        fontFamily: "Noto Sans CJK KR",
-        fontSize: "1rem",
-        fontWeight: "500",
-        border: "1px solid #BDBDBD",
-        cursor: "pointer",
-      }}
-    >
-      {children}
-    </button>
-  );
-}
+export const Contents = styled.div`
+  padding-top: 40px;
+  padding-bottom: 120px;
+`;
 
-export function BoardButtonContainer({ children }) {
-  return (
-    <div
-      css={{
-        width: "100%",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        margin: "2.5rem 0rem 6rem 0rem",
-      }}
-    >
-      {children}
-    </div>
-  );
-}
+export const BottomWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-top: 80px;
+`;
 
-export function Line({ width, height, color }) {
-  return (
-    <div
-      css={{
-        width: width,
-        height: height,
-        backgroundColor: colors[color],
-      }}
-    />
-  );
-}
+export const Button = styled.button`
+  width: 179px;
+  height: 45px;
+  background-color: white;
+  border: 1px solid gray;
+  margin: 0px 12px;
+  cursor: pointer;
 
-export function Icon({ src, width, height }) {
-  return (
-    <img
-      src={src}
-      css={{
-        width: calcRem(width),
-        height: calcRem(height),
-        cursor: "pointer",
-        margin: "0.5rem",
-      }}
-    />
-  );
-}
+  :hover {
+    background-color: gold;
+    border-color: white;
+  }
+`;
