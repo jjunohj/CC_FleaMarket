@@ -1,5 +1,5 @@
 import * as S from "./BoardList.styles";
-import { getDate } from "../../../../commons/utils/utils";
+import { getDate } from "../../../../commons/libraries/utils";
 
 export default function BoardListUI(props) {
   return (
