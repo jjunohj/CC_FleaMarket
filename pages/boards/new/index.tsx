@@ -7,7 +7,7 @@ export default function BoardWritePage() {
     <>
       <GlobalStyle />
       <Header />
-      <BoardWrite />
+      <BoardWrite isEdit={false} />
     </>
   );
 }

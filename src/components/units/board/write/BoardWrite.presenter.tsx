@@ -1,6 +1,7 @@
 import * as S from "./BoardWrite.styles";
+import { IBoardWriteUIProps } from "./BoardWrite.types";
 
-export default function BoardWriteUI(props) {
+export default function BoardWriteUI(props: IBoardWriteUIProps) {
   return (
     <S.Wrapper>
       <S.Title>{props.isEdit ? "게시글 수정" : "게시글 등록"}</S.Title>
@@ -11,7 +12,9 @@ export default function BoardWriteUI(props) {
             type="text"
             placeholder="이름을 적어주세요."
             onChange={props.onChangeWriter}
-            defaultValue={props.data?.fetchBoard.writer}
+            defaultValue={
+              props.data?.fetchBoard.writer ? props.data?.fetchBoard.writer : ""
+            }
           />
           <S.Error>{props.writerError}</S.Error>
         </S.InputWrapper>
@@ -21,7 +24,6 @@ export default function BoardWriteUI(props) {
             type="password"
             placeholder="비밀번호를 작성해주세요."
             onChange={props.onChangePassword}
-            defaultValue={props.data?.fetchBoard.password}
           />
           <S.Error>{props.passwordError}</S.Error>
         </S.InputWrapper>
