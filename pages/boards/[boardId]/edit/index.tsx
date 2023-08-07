@@ -3,6 +3,10 @@ import GlobalStyle from "../../../../src/components/commons/global";
 import Header from "../../../../src/components/commons/header/Header.container";
 import { useRouter } from "next/router";
 import { useQuery, gql } from "@apollo/client";
+import {
+  IQuery,
+  IQueryFetchBoardArgs,
+} from "../../../../src/commons/types/generated/types";
 
 const FETCH_BOARD = gql`
   query fetchBoard($boardId: ID!) {
@@ -19,11 +23,14 @@ const FETCH_BOARD = gql`
 export default function BoardsEditPage() {
   const router = useRouter();
 
-  const { data } = useQuery(FETCH_BOARD, {
-    variables: {
-      boardId: router.query.boardId,
-    },
-  });
+  const { data } = useQuery<Pick<IQuery, "fetchBoard">, IQueryFetchBoardArgs>(
+    FETCH_BOARD,
+    {
+      variables: {
+        boardId: String(router.query.boardId),
+      },
+    }
+  );
 
   return (
     <>

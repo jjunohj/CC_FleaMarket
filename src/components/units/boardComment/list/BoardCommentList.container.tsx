@@ -6,13 +6,20 @@ import {
   FETCH_BOARD_COMMENTS,
 } from "./BoardCommentList.queries";
 import { MouseEvent } from "react";
+import {
+  IQuery,
+  IQueryFetchBoardCommentsArgs,
+} from "../../../../commons/types/generated/types";
 
 export default function BoardCommentList() {
   const router = useRouter();
   const [deleteBoardComment] = useMutation(DELETE_BOARD_COMMENT);
 
-  const { data } = useQuery(FETCH_BOARD_COMMENTS, {
-    variables: { boardId: router.query.boardId },
+  const { data } = useQuery<
+    Pick<IQuery, "fetchBoardComments">,
+    IQueryFetchBoardCommentsArgs
+  >(FETCH_BOARD_COMMENTS, {
+    variables: { boardId: String(router.query.boardId) },
   });
 
   const onClickDelete = async (event: MouseEvent<HTMLImageElement>) => {
