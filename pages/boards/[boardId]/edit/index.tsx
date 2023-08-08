@@ -23,6 +23,11 @@ const FETCH_BOARD = gql`
 export default function BoardsEditPage() {
   const router = useRouter();
 
+  // if (typeof router.query.boardId !== "string") {
+  //   router.push("/")
+  //   return <></>
+  // }
+
   const { data } = useQuery<Pick<IQuery, "fetchBoard">, IQueryFetchBoardArgs>(
     FETCH_BOARD,
     {

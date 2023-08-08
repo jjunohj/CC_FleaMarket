@@ -5,6 +5,10 @@ import { FETCH_BOARD_COMMENTS } from "../list/BoardCommentList.queries";
 import { useState } from "react";
 import { useRouter } from "next/router";
 import { ChangeEvent } from "react";
+import {
+  IMutation,
+  IMutationCreateBoardCommentArgs,
+} from "../../../../commons/types/generated/types";
 
 export default function BoardCommentWrite() {
   const router = useRouter();
@@ -13,7 +17,10 @@ export default function BoardCommentWrite() {
   const [password, setPassword] = useState("");
   const [contents, setContents] = useState("");
 
-  const [createBoardComment] = useMutation(CREATE_BOARD_COMMENT);
+  const [createBoardComment] = useMutation<
+    Pick<IMutation, "createBoardComment">,
+    IMutationCreateBoardCommentArgs
+  >(CREATE_BOARD_COMMENT);
 
   const onChangeWriter = (event: ChangeEvent<HTMLInputElement>) => {
     setWriter(event.target.value);
@@ -35,7 +42,7 @@ export default function BoardCommentWrite() {
             contents: contents,
             rating: 0,
           },
-          boardId: router.query.boardId,
+          boardId: String(router.query.boardId),
         },
         refetchQueries: [
           {
@@ -46,8 +53,8 @@ export default function BoardCommentWrite() {
       });
 
       alert("댓글을 등록합니다.");
-    } catch (error: any) {
-      alert(error.message);
+    } catch (error) {
+      if (error instanceof Error) alert(error.message);
     }
   };
 

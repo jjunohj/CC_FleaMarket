@@ -32,8 +32,8 @@ export default function BoardDetail() {
         variables: { boardId: router.query.boardId },
       });
       router.push("/boards");
-    } catch (error: any) {
-      alert(error.message);
+    } catch (error) {
+      if (error instanceof Error) alert(error.message);
     }
   };
 

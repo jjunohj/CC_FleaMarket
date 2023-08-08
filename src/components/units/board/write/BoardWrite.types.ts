@@ -6,13 +6,9 @@ export interface IBoardWriteProps {
   data?: Pick<IQuery, "fetchBoard">;
 }
 
-export interface IUpdateVariables {
-  boardId: string | string[] | undefined;
-  password?: string;
-  updateBoardInput: {
-    title?: string;
-    contents?: string;
-  };
+export interface IUpdateBoardInput {
+  title?: string;
+  contents?: string;
 }
 
 export interface IBoardWriteUIProps {

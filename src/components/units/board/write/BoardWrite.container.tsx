@@ -3,7 +3,12 @@ import { useRouter } from "next/router";
 import { useMutation, useQuery } from "@apollo/client";
 import BoardWriteUI from "./BoardWrite.presenter";
 import { CREATE_BOARD, UPDATE_BOARD } from "./BoardWrite.queries";
-import { IBoardWriteProps, IUpdateVariables } from "./BoardWrite.types";
+import { IBoardWriteProps, IUpdateBoardInput } from "./BoardWrite.types";
+import {
+  IMutation,
+  IMutationCreateBoardArgs,
+  IMutationUpdateBoardArgs,
+} from "../../../../commons/types/generated/types";
 
 export default function BoardWrite(props: IBoardWriteProps) {
   const router = useRouter();
@@ -19,8 +24,14 @@ export default function BoardWrite(props: IBoardWriteProps) {
   const [titleError, setTitleError] = useState("");
   const [contentsError, setContentsError] = useState("");
 
-  const [createBoard] = useMutation(CREATE_BOARD);
-  const [updateBoard] = useMutation(UPDATE_BOARD);
+  const [createBoard] = useMutation<
+    Pick<IMutation, "createBoard">,
+    IMutationCreateBoardArgs
+  >(CREATE_BOARD);
+  const [updateBoard] = useMutation<
+    Pick<IMutation, "updateBoard">,
+    IMutationUpdateBoardArgs
+  >(UPDATE_BOARD);
 
   const onChangeWriter = (event: ChangeEvent<HTMLInputElement>) => {
     setWriter(event.target.value);
@@ -99,27 +110,40 @@ export default function BoardWrite(props: IBoardWriteProps) {
             },
           },
         });
-        console.log(result.data.createBoard._id);
-        router.push(`/boards/${result.data.createBoard._id}`);
-      } catch (error: any) {
-        alert(error.message);
+        router.push(`/boards/${result.data?.createBoard._id}`);
+      } catch (error) {
+        if (error instanceof Error) alert(error.message);
       }
     }
   };
 
   const onClickUpdate = async () => {
-    const updateVariables: IUpdateVariables = {
-      boardId: router.query.boardId,
-      updateBoardInput: {},
-    };
-    if (password) updateVariables.password = password;
-    if (title) updateVariables.updateBoardInput.title = title;
-    if (contents) updateVariables.updateBoardInput.contents = contents;
-    const result = await updateBoard({
-      variables: updateVariables,
-    });
-    router.push(`/boards/${result.data.updateBoard._id}`);
-    console.log(result);
+    if (!title && !contents) {
+      alert("수정한 내용이 없습니다.");
+      return;
+    }
+
+    if (!password) {
+      alert("비밀번호를 입력해주세요.");
+      return;
+    }
+
+    const updateBoardInput: IUpdateBoardInput = {};
+    if (title) updateBoardInput.title = title;
+    if (contents) updateBoardInput.contents = contents;
+
+    try {
+      const result = await updateBoard({
+        variables: {
+          boardId: String(router.query.boardId),
+          password: password,
+          updateBoardInput: updateBoardInput,
+        },
+      });
+      router.push(`/boards/${result.data?.updateBoard._id}`);
+    } catch (error) {
+      if (error instanceof Error) alert(error.message);
+    }
   };
 
   return (

@@ -7,13 +7,18 @@ import {
 } from "./BoardCommentList.queries";
 import { MouseEvent } from "react";
 import {
+  IMutation,
+  IMutationDeleteBoardCommentArgs,
   IQuery,
   IQueryFetchBoardCommentsArgs,
 } from "../../../../commons/types/generated/types";
 
 export default function BoardCommentList() {
   const router = useRouter();
-  const [deleteBoardComment] = useMutation(DELETE_BOARD_COMMENT);
+  const [deleteBoardComment] = useMutation<
+    Pick<IMutation, "deleteBoardComment">,
+    IMutationDeleteBoardCommentArgs
+  >(DELETE_BOARD_COMMENT);
 
   const { data } = useQuery<
     Pick<IQuery, "fetchBoardComments">,
@@ -38,8 +43,8 @@ export default function BoardCommentList() {
             },
           ],
         });
-      } catch (error: any) {
-        alert(error.message);
+      } catch (error) {
+        if (error instanceof Error) alert(error.message);
       }
   };
 
