@@ -29,23 +29,22 @@ export default function BoardCommentList() {
 
   const onClickDelete = async (event: MouseEvent<HTMLImageElement>) => {
     const myPassword = prompt("비밀번호를 입력하세요.");
-    if (event.target instanceof HTMLImageElement)
-      try {
-        await deleteBoardComment({
-          variables: {
-            password: myPassword,
-            boardCommentId: event.target.id,
+    try {
+      await deleteBoardComment({
+        variables: {
+          password: myPassword,
+          boardCommentId: event.currentTarget.id,
+        },
+        refetchQueries: [
+          {
+            query: FETCH_BOARD_COMMENTS,
+            variables: { boardId: router.query.boardId },
           },
-          refetchQueries: [
-            {
-              query: FETCH_BOARD_COMMENTS,
-              variables: { boardId: router.query.boardId },
-            },
-          ],
-        });
-      } catch (error) {
-        if (error instanceof Error) alert(error.message);
-      }
+        ],
+      });
+    } catch (error) {
+      if (error instanceof Error) alert(error.message);
+    }
   };
 
   return <BoardCommentListUI data={data} onClickDelete={onClickDelete} />;
