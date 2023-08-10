@@ -1,4 +1,5 @@
 import styled from "@emotion/styled";
+import type { IButtonProps } from "./BoardCommentWrite.types";
 
 export const Wrapper = styled.div`
   width: 1200px;
@@ -6,6 +7,15 @@ export const Wrapper = styled.div`
 `;
 
 export const CommentIcon = styled.img``;
+
+export const CommentTitle = styled.div`
+  display: flex;
+  flex-direction: row;
+  width: 4rem;
+  height: 1rem;
+  justify-content: space-between;
+  align-items: center;
+`;
 
 export const InputWrapper = styled.div`
   display: flex;
@@ -52,7 +62,8 @@ export const ContentsLength = styled.div`
 export const Button = styled.button`
   width: 91px;
   height: 51px;
-  background-color: black;
-  color: white;
+  background-color: ${(props: IButtonProps) =>
+    props.isEdit ? "#ffd600" : "#000000"};
+  color: ${(props: IButtonProps) => (props.isEdit ? "#000000" : "#ffffff")};
   cursor: pointer;
 `;

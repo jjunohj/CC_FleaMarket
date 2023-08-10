@@ -1,10 +1,11 @@
-import { useState, ChangeEvent } from "react";
+import type { ChangeEvent } from "react";
+import { useState } from "react";
 import { useRouter } from "next/router";
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import BoardWriteUI from "./BoardWrite.presenter";
 import { CREATE_BOARD, UPDATE_BOARD } from "./BoardWrite.queries";
-import { IBoardWriteProps, IUpdateBoardInput } from "./BoardWrite.types";
-import {
+import type { IBoardWriteProps, IUpdateBoardInput } from "./BoardWrite.types";
+import type {
   IMutation,
   IMutationCreateBoardArgs,
   IMutationUpdateBoardArgs,
@@ -103,14 +104,14 @@ export default function BoardWrite(props: IBoardWriteProps) {
         const result = await createBoard({
           variables: {
             createBoardInput: {
-              writer: writer,
-              password: password,
-              title: title,
-              contents: contents,
+              writer,
+              password,
+              title,
+              contents,
             },
           },
         });
-        router.push(`/boards/${result.data?.createBoard._id}`);
+        router.push(`/boards/${String(result.data?.createBoard._id)}`);
       } catch (error) {
         if (error instanceof Error) alert(error.message);
       }
@@ -136,11 +137,11 @@ export default function BoardWrite(props: IBoardWriteProps) {
       const result = await updateBoard({
         variables: {
           boardId: String(router.query.boardId),
-          password: password,
-          updateBoardInput: updateBoardInput,
+          password,
+          updateBoardInput,
         },
       });
-      router.push(`/boards/${result.data?.updateBoard._id}`);
+      router.push(`/boards/${String(result.data?.updateBoard._id)}`);
     } catch (error) {
       if (error instanceof Error) alert(error.message);
     }

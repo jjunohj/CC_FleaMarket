@@ -1,5 +1,5 @@
-import { ChangeEvent } from "react";
-import { IQuery } from "../../../../commons/types/generated/types";
+import type { ChangeEvent } from "react";
+import type { IQuery } from "../../../../commons/types/generated/types";
 
 export interface IBoardWriteProps {
   isEdit: boolean;
@@ -23,8 +23,8 @@ export interface IBoardWriteUIProps {
   onChangePassword: (event: ChangeEvent<HTMLInputElement>) => void;
   onChangeTitle: (event: ChangeEvent<HTMLInputElement>) => void;
   onChangeContents: (event: ChangeEvent<HTMLTextAreaElement>) => void;
-  onClickSubmit: () => void;
-  onClickUpdate: () => void;
+  onClickSubmit: () => Promise<void>;
+  onClickUpdate: () => Promise<void>;
 }
 
 export interface ISubmitButtonProps {

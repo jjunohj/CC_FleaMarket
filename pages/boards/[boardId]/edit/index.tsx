@@ -1,9 +1,7 @@
 import BoardWrite from "../../../../src/components/units/board/write/BoardWrite.container";
-import GlobalStyle from "../../../../src/components/commons/global";
-import Header from "../../../../src/components/commons/header/Header.container";
 import { useRouter } from "next/router";
 import { useQuery, gql } from "@apollo/client";
-import {
+import type {
   IQuery,
   IQueryFetchBoardArgs,
 } from "../../../../src/commons/types/generated/types";
@@ -34,13 +32,11 @@ export default function BoardsEditPage() {
       variables: {
         boardId: String(router.query.boardId),
       },
-    }
+    },
   );
 
   return (
     <>
-      <GlobalStyle />
-      <Header />
       <BoardWrite isEdit={true} data={data} />
     </>
   );

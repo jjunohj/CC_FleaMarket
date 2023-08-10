@@ -2,7 +2,7 @@ import { useQuery, useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 import BoardDetailUI from "./BoardDetail.presenter";
 import { FETCH_BOARD, DELETE_BOARD } from "./BoardDetail.queries";
-import {
+import type {
   IQuery,
   IQueryFetchBoardArgs,
 } from "../../../../commons/types/generated/types";
@@ -15,7 +15,7 @@ export default function BoardDetail() {
     FETCH_BOARD,
     {
       variables: { boardId: String(router.query.boardId) },
-    }
+    },
   );
 
   const onClickMoveToBoardList = () => {
@@ -23,7 +23,7 @@ export default function BoardDetail() {
   };
 
   const onClickMoveToBoardEdit = () => {
-    router.push(`/boards/${router.query.boardId}/edit`);
+    router.push(`/boards/${String(router.query.boardId)}/edit`);
   };
 
   const onClickDelete = async () => {
