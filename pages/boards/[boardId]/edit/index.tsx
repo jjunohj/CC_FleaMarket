@@ -13,6 +13,16 @@ const FETCH_BOARD = gql`
       writer
       title
       contents
+      youtubeUrl
+      likeCount
+      dislikeCount
+      images
+      boardAddress {
+        zipcode
+        address
+        addressDetail
+      }
+
       createdAt
     }
   }
@@ -32,7 +42,7 @@ export default function BoardsEditPage() {
       variables: {
         boardId: String(router.query.boardId),
       },
-    },
+    }
   );
 
   return (

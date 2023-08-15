@@ -10,6 +10,14 @@ export interface IBoardWriteProps {
 export interface IUpdateBoardInput {
   title?: string;
   contents?: string;
+  youtubeUrl?: string;
+  images?: string[];
+  boardAddress?: {
+    zipcode?: string;
+    address?: string;
+    addressDetail?: string;
+  };
+  
 }
 
 export interface IBoardWriteUIProps {

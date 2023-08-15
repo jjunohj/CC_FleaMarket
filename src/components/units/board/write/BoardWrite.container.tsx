@@ -106,7 +106,6 @@ export default function BoardWrite(props: IBoardWriteProps) {
     setAddressDetail(event.target.value);
   };
 
-
   const onChangeYoutubeUrl = (event: ChangeEvent<HTMLInputElement>) => {
     setYoutubeUrl(event.target.value);
   };
@@ -142,6 +141,10 @@ export default function BoardWrite(props: IBoardWriteProps) {
             },
           },
         });
+        if (typeof result.data?.createBoard._id !== "string") {
+          alert("일시적인 오류가 있습니다. 다시 시도해주세요.");
+          return;
+        }
         router.push(`/boards/${String(result.data?.createBoard._id)}`);
       } catch (error) {
         if (error instanceof Error) alert(error.message);
@@ -150,7 +153,14 @@ export default function BoardWrite(props: IBoardWriteProps) {
   };
 
   const onClickUpdate = async () => {
-    if (!title && !contents) {
+    if (
+      !title &&
+      !contents &&
+      !youtubeUrl &&
+      !zipcode &&
+      !address &&
+      !addressDetail
+    ) {
       alert("수정한 내용이 없습니다.");
       return;
     }
@@ -163,6 +173,14 @@ export default function BoardWrite(props: IBoardWriteProps) {
     const updateBoardInput: IUpdateBoardInput = {};
     if (title) updateBoardInput.title = title;
     if (contents) updateBoardInput.contents = contents;
+    if (youtubeUrl) updateBoardInput.youtubeUrl = youtubeUrl;
+    if (zipcode || address || addressDetail) {
+      updateBoardInput.boardAddress = {};
+      if (zipcode) updateBoardInput.boardAddress.zipcode = zipcode;
+      if (address) updateBoardInput.boardAddress.address = address;
+      if (addressDetail)
+        updateBoardInput.boardAddress.addressDetail = addressDetail;
+    }
 
     try {
       const result = await updateBoard({
@@ -172,6 +190,10 @@ export default function BoardWrite(props: IBoardWriteProps) {
           updateBoardInput,
         },
       });
+      if (typeof result.data?.updateBoard._id !== "string") {
+        alert("일시적인 오류가 있습니다. 다시 시도해주세요.");
+        return;
+      }
       router.push(`/boards/${String(result.data?.updateBoard._id)}`);
     } catch (error) {
       if (error instanceof Error) alert(error.message);
