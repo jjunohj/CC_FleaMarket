@@ -61,6 +61,15 @@ export const Contents = styled.div`
   padding-bottom: 120px;
 `;
 
+export const YoutubeWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+
+
 export const Footer = styled.div`
   width: 100%;
   padding-top: 100px;

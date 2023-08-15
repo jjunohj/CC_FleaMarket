@@ -1,6 +1,7 @@
 import { getDate } from "../../../../commons/libraries/utils";
 import * as S from "./BoardDetail.styles";
 import type { IBoardDetailUIProps } from "./BoardDetail.types";
+import YouTube from "react-youtube";
 
 export default function BoardDetailUI(props: IBoardDetailUIProps) {
   return (
@@ -20,6 +21,9 @@ export default function BoardDetailUI(props: IBoardDetailUIProps) {
         <S.Body>
           <S.Title>{props.data?.fetchBoard?.title}</S.Title>
           <S.Contents>{props.data?.fetchBoard?.contents}</S.Contents>
+          <S.YoutubeWrapper>
+            <YouTube videoId={props.data?.fetchBoard?.youtubeUrl?.split("v=")[1]} />
+          </S.YoutubeWrapper>
         </S.Body>
         <S.Footer>
           <S.LikeWrapper onClick={props.onClickLike}>

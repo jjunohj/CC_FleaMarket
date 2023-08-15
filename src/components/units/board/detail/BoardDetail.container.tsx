@@ -6,6 +6,7 @@ import type {
   IQuery,
   IQueryFetchBoardArgs,
 } from "../../../../commons/types/generated/types";
+import type { YouTubeProps } from "react-youtube";
 
 export default function BoardDetail() {
   const router = useRouter();
@@ -71,6 +72,23 @@ export default function BoardDetail() {
     }
   };
 
+  const onPlayerReady: YouTubeProps["onReady"] = (event) => {
+    // access to player in all event handlers via event.target
+    event.target.pauseVideo();
+    event.target.mute();
+  };
+
+  const opts: YouTubeProps["opts"] = {
+    height: "600",
+    width: "800",
+    playerVars: {
+      // https://developers.google.com/youtube/player_parameters
+      autoplay: 1,
+    },
+    mute: 1,
+  };
+
+
   return (
     <BoardDetailUI
       data={data}
@@ -79,6 +97,8 @@ export default function BoardDetail() {
       onClickDelete={onClickDelete}
       onClickLike={onClickLike}
       onClickDislike={onClickDislike}
+      onPlayerReady={onPlayerReady}
+      opts={opts}
     />
   );
 }
