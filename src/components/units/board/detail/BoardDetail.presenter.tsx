@@ -21,6 +21,16 @@ export default function BoardDetailUI(props: IBoardDetailUIProps) {
           <S.Title>{props.data?.fetchBoard?.title}</S.Title>
           <S.Contents>{props.data?.fetchBoard?.contents}</S.Contents>
         </S.Body>
+        <S.Footer>
+          <S.LikeWrapper onClick={props.onClickLike}>
+            <S.LikeIcon src="/images/board/detail/like.svg" />
+            <S.LikeCount>{props.data?.fetchBoard?.likeCount}</S.LikeCount>
+          </S.LikeWrapper>
+          <S.DislikeWrapper onClick={props.onClickDislike}>
+            <S.DislikeIcon src="/images/board/detail/dislike.svg" />
+            <S.DislikeCount>{props.data?.fetchBoard?.dislikeCount}</S.DislikeCount>
+          </S.DislikeWrapper>
+        </S.Footer>
       </S.CardWrapper>
       <S.BottomWrapper>
         <S.Button onClick={props.onClickMoveToBoardList}>목록으로</S.Button>

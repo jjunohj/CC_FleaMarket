@@ -61,6 +61,67 @@ export const Contents = styled.div`
   padding-bottom: 120px;
 `;
 
+export const Footer = styled.div`
+  width: 100%;
+  padding-top: 100px;
+  padding-bottom: 80px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+`;
+
+export const LikeWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-right: 40px;
+  cursor: pointer;
+`;
+
+export const LikeIcon = styled.img`
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--main, #FFD600);
+`
+
+export const LikeCount = styled.div`
+  margin-top: 4px;
+  color: var(--main, #FFD600);
+  text-align: center;
+  font-family: Noto Sans CJK KR;
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+`;
+
+export const DislikeWrapper = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-left: 40px;
+  cursor: pointer;
+`;
+
+export const DislikeIcon = styled.img`
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--gray-3, #828282);
+`
+
+export const DislikeCount = styled.div`
+  margin-top: 4px;
+  color: var(--gray-3, #828282);
+  text-align: center;
+  font-family: Noto Sans CJK KR;
+  font-size: 1.125rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+`;
+
+
+
 export const BottomWrapper = styled.div`
   display: flex;
   flex-direction: row;
