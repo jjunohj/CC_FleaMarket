@@ -1,5 +1,7 @@
 import * as S from "./BoardWrite.styles";
 import type { IBoardWriteUIProps } from "./BoardWrite.types";
+import DaumPostcodeEmbed from "react-daum-postcode";
+import { Modal } from "antd";
 
 export default function BoardWriteUI(props: IBoardWriteUIProps) {
   return (
@@ -50,11 +52,16 @@ export default function BoardWriteUI(props: IBoardWriteUIProps) {
       <S.InputWrapper>
         <S.Label>주소</S.Label>
         <S.ZipcodeWrapper>
-          <S.Zipcode placeholder="07250" />
-          <S.SearchButton>우편번호 검색</S.SearchButton>
+          <S.Zipcode value={props.zipcode ? props.zipcode : ""} readOnly/>
+          <S.SearchButton onClick={props.onToggleModal}>우편번호 검색</S.SearchButton>
+          {props.isModalOpen && (
+        <Modal open={props.isModalOpen} onOk={props.onToggleModal} onCancel={props.onToggleModal}>
+          <DaumPostcodeEmbed onComplete={props.handleAddressModalComplete} />
+        </Modal> 
+      )}
         </S.ZipcodeWrapper>
-        <S.Address />
-        <S.Address />
+        <S.Address value={props.address ? props.address : ""} readOnly/>
+        <S.Address onChange={props.onChangeAddressDetail}/>
       </S.InputWrapper>
       <S.InputWrapper>
         <S.Label>유튜브</S.Label>

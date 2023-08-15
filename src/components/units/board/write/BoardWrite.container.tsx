@@ -10,15 +10,21 @@ import type {
   IMutationCreateBoardArgs,
   IMutationUpdateBoardArgs,
 } from "../../../../commons/types/generated/types";
+import type { Address } from "react-daum-postcode";
 
 export default function BoardWrite(props: IBoardWriteProps) {
   const router = useRouter();
   const [isActive, setIsActive] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   const [writer, setWriter] = useState("");
   const [password, setPassword] = useState("");
   const [title, setTitle] = useState("");
   const [contents, setContents] = useState("");
+  const [zipcode, setZipcode] = useState("");
+  const [address, setAddress] = useState("");
+  const [addressDetail, setAddressDetail] = useState("");
+  const [youtubeUrl, setYoutubeUrl] = useState("");
 
   const [writerError, setWriterError] = useState("");
   const [passwordError, setPasswordError] = useState("");
@@ -86,6 +92,25 @@ export default function BoardWrite(props: IBoardWriteProps) {
     }
   };
 
+  const onToggleModal = () => {
+    setIsModalOpen((prev) => !prev);
+  };
+
+  const handleAddressModalComplete = (address: Address) => {
+    setZipcode(address.zonecode);
+    setAddress(address.address);
+    onToggleModal();
+  };
+
+  const onChangeAddressDetail = (event: ChangeEvent<HTMLInputElement>) => {
+    setAddressDetail(event.target.value);
+  };
+
+
+  const onChangeYoutubeUrl = (event: ChangeEvent<HTMLInputElement>) => {
+    setYoutubeUrl(event.target.value);
+  };
+
   const onClickSubmit = async () => {
     if (!writer) {
       setWriterError("작성자를 입력해주세요.");
@@ -108,6 +133,12 @@ export default function BoardWrite(props: IBoardWriteProps) {
               password,
               title,
               contents,
+              boardAddress: {
+                zipcode,
+                address,
+                addressDetail,
+              },
+              youtubeUrl,
             },
           },
         });
@@ -150,7 +181,11 @@ export default function BoardWrite(props: IBoardWriteProps) {
   return (
     <BoardWriteUI
       data={props.data}
+      zipcode={zipcode}
+      address={address}
+      addressDetail={addressDetail}
       isActive={isActive}
+      isModalOpen={isModalOpen}
       writerError={writerError}
       passwordError={passwordError}
       titleError={titleError}
@@ -159,8 +194,12 @@ export default function BoardWrite(props: IBoardWriteProps) {
       onChangePassword={onChangePassword}
       onChangeTitle={onChangeTitle}
       onChangeContents={onChangeContents}
+      onChangeAddressDetail={onChangeAddressDetail}
+      onChangeYoutubeUrl={onChangeYoutubeUrl}
+      onToggleModal={onToggleModal}
       onClickSubmit={onClickSubmit}
       onClickUpdate={onClickUpdate}
+      handleAddressModalComplete={handleAddressModalComplete}
       isEdit={props.isEdit}
     />
   );
