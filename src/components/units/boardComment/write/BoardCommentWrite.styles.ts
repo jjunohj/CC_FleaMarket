@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import type { IButtonProps } from "./BoardCommentWrite.types";
+import { Rate } from "antd";
 
 export const Wrapper = styled.div`
   width: 1200px;
@@ -67,3 +68,5 @@ export const Button = styled.button`
   color: ${(props: IButtonProps) => (props.isEdit ? "#000000" : "#ffffff")};
   cursor: pointer;
 `;
+
+export const Star = styled(Rate)``;

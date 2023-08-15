@@ -7,7 +7,13 @@ export default function BoardCommentWriteUI(props: IBoardCommentListUIProps) {
   return (
     <>
       {props.data?.fetchBoardComments.map((el) => (
-        <BoardCommentListUIItem key={el._id} el={el} />
+        <BoardCommentListUIItem 
+        key={el._id} 
+        el={el} 
+        isOpenDeleteModal={props.isOpenDeleteModal}
+        onClickDelete={props.onClickDelete}
+        onChangeDeletePassword={props.onChangeDeletePassword}
+        onClickOpenDeleteModal={props.onClickOpenDeleteModal}/>
       ))}
     </>
   );

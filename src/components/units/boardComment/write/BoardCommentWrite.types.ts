@@ -1,12 +1,15 @@
 import type { ChangeEvent } from "react";
 
 export interface IBoardCommentWriteUIProps {
+  writer: string;
+  password: string;
   contents: string;
   onChangeWriter: (event: ChangeEvent<HTMLInputElement>) => void;
   onChangePassword: (event: ChangeEvent<HTMLInputElement>) => void;
   onChangeContents: (event: ChangeEvent<HTMLTextAreaElement>) => void;
   onClickWrite: () => void;
   onClickUpdate: () => void;
+  setStar: (value: number) => void;
   isEdit?: boolean;
   el?: any;
 }

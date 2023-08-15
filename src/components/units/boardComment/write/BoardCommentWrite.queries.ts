@@ -22,8 +22,6 @@ export const UPDATE_BOARD_COMMENT = gql`
     updateBoardComment(
       updateBoardCommentInput: $updateBoardCommentInput
       boardCommentId: $boardCommentId
-    ) {
-      _id
-    }
+    )
   }
 `;

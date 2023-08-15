@@ -22,6 +22,7 @@ export default function BoardCommentWrite(props: IBoardCommentWriteProps) {
   const [writer, setWriter] = useState("");
   const [password, setPassword] = useState("");
   const [contents, setContents] = useState("");
+  const [star, setStar] = useState(0);
 
   const [createBoardComment] = useMutation<
     Pick<IMutation, "createBoardComment">,
@@ -44,6 +45,8 @@ export default function BoardCommentWrite(props: IBoardCommentWriteProps) {
   };
 
   const onClickWrite = async () => {
+    if(typeof router.query.boardId !== "string") return
+
     try {
       await createBoardComment({
         variables: {
@@ -51,9 +54,9 @@ export default function BoardCommentWrite(props: IBoardCommentWriteProps) {
             writer,
             password,
             contents,
-            rating: 0,
+            rating: star,
           },
-          boardId: String(router.query.boardId),
+          boardId: router.query.boardId,
         },
         refetchQueries: [
           {
@@ -62,11 +65,13 @@ export default function BoardCommentWrite(props: IBoardCommentWriteProps) {
           },
         ],
       });
-
-      alert("댓글을 등록합니다.");
     } catch (error) {
       if (error instanceof Error) alert(error.message);
     }
+
+    setWriter("");
+    setPassword("");
+    setContents("");
   };
 
   const onClickUpdate = () => {
@@ -95,10 +100,13 @@ export default function BoardCommentWrite(props: IBoardCommentWriteProps) {
 
   return (
     <BoardCommentWriteUI
-      contents={contents}
       onChangeWriter={onChangeWriter}
       onChangePassword={onChangePassword}
       onChangeContents={onChangeContents}
+      writer={writer}
+      password={password}
+      contents={contents}
+      setStar={setStar}
       onClickWrite={onClickWrite}
       onClickUpdate={onClickUpdate}
       isEdit={props.isEdit}
