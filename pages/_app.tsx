@@ -6,13 +6,13 @@ import { Global } from "@emotion/react";
 
 export default function App({ Component }: AppProps) {
   return (
-    <>
-      <Global styles={globalStyles} />
-      <ApolloSetting>
+    <ApolloSetting>
+      <>
+        <Global styles={globalStyles} />
         <Layout>
           <Component />
         </Layout>
-      </ApolloSetting>
-    </>
+      </>
+    </ApolloSetting>
   );
 }
