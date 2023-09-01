@@ -132,12 +132,13 @@ export default function BoardWrite(props: IBoardWriteProps) {
               password,
               title,
               contents,
+              youtubeUrl,
               boardAddress: {
                 zipcode,
                 address,
                 addressDetail,
               },
-              youtubeUrl,
+              images: [],
             },
           },
         });
