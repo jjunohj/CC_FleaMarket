@@ -7,5 +7,5 @@ const Wrapper = styled.div`
 `;
 
 export default function LayoutFooter() {
-  return <Wrapper>헤더입니다.</Wrapper>;
+  return <Wrapper>푸터입니다.</Wrapper>;
 }
