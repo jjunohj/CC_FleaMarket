@@ -1,7 +1,12 @@
 import { useQuery, useMutation } from "@apollo/client";
 import { useRouter } from "next/router";
 import BoardDetailUI from "./BoardDetail.presenter";
-import { FETCH_BOARD, DELETE_BOARD, LIKE_BOARD, DISLIKE_BOARD } from "./BoardDetail.queries";
+import {
+  FETCH_BOARD,
+  DELETE_BOARD,
+  LIKE_BOARD,
+  DISLIKE_BOARD,
+} from "./BoardDetail.queries";
 import type {
   IQuery,
   IQueryFetchBoardArgs,
@@ -18,8 +23,9 @@ export default function BoardDetail() {
     FETCH_BOARD,
     {
       variables: { boardId: String(router.query.boardId) },
-    },
+    }
   );
+  console.log(data);
 
   const onClickMoveToBoardList = () => {
     router.push("/boards");
@@ -82,12 +88,11 @@ export default function BoardDetail() {
     height: "600",
     width: "800",
     playerVars: {
-      // https://developers.google.com/youtube/player_parameters
+      // https://developers.google.com/youtube/AIzaSyAw6kvNFxI_ykY1tXIQcLFtV5TEvEuQOv4
       autoplay: 1,
     },
     mute: 1,
   };
-
 
   return (
     <BoardDetailUI
