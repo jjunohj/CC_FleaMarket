@@ -45,7 +45,7 @@ export default function BoardCommentWrite(props: IBoardCommentWriteProps) {
   };
 
   const onClickWrite = async () => {
-    if(typeof router.query.boardId !== "string") return
+    if (typeof router.query.boardId !== "string") return;
 
     try {
       await createBoardComment({
@@ -65,13 +65,12 @@ export default function BoardCommentWrite(props: IBoardCommentWriteProps) {
           },
         ],
       });
+      setWriter("");
+      setPassword("");
+      setContents("");
     } catch (error) {
       if (error instanceof Error) alert(error.message);
     }
-
-    setWriter("");
-    setPassword("");
-    setContents("");
   };
 
   const onClickUpdate = () => {

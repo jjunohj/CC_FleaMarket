@@ -11,6 +11,7 @@ export interface IBoardCommentWriteUIProps {
   onClickUpdate: () => void;
   setStar: (value: number) => void;
   isEdit?: boolean;
+  setIsEdit?: (isEdit: boolean) => void;
   el?: any;
 }
 
