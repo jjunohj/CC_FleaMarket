@@ -12,12 +12,14 @@ import type {
   IQueryFetchBoardArgs,
 } from "../../../../commons/types/generated/types";
 import type { YouTubeProps } from "react-youtube";
+import { useState } from "react";
 
 export default function BoardDetail() {
   const router = useRouter();
   const [deleteBoard] = useMutation(DELETE_BOARD);
   const [likeBoard] = useMutation(LIKE_BOARD);
   const [dislikeBoard] = useMutation(DISLIKE_BOARD);
+  const [locationToggle, setLocationToggle] = useState(false);
 
   const { data } = useQuery<Pick<IQuery, "fetchBoard">, IQueryFetchBoardArgs>(
     FETCH_BOARD,
@@ -78,6 +80,10 @@ export default function BoardDetail() {
     }
   };
 
+  const onToggleLocation = () => {
+    setLocationToggle((prev) => !prev);
+  };
+
   const onPlayerReady: YouTubeProps["onReady"] = (event) => {
     // access to player in all event handlers via event.target
     event.target.pauseVideo();
@@ -103,6 +109,8 @@ export default function BoardDetail() {
       onClickLike={onClickLike}
       onClickDislike={onClickDislike}
       onPlayerReady={onPlayerReady}
+      onToggleLocation={onToggleLocation}
+      locationToggle={locationToggle}
       opts={opts}
     />
   );

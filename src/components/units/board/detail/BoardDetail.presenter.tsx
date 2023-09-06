@@ -17,12 +17,24 @@ export default function BoardDetailUI(props: IBoardDetailUIProps) {
               </S.CreatedAt>
             </S.Info>
           </S.AvatarWrapper>
+          <S.HeaderRightWrapper>
+            <S.Link src="/images/board/detail/link.svg" />
+            <S.Location
+              src="/images/board/detail/location.svg"
+              onClick={props.onToggleLocation}
+            />
+            <S.LocationPopUp toggle={props.locationToggle}>
+              {props.data?.fetchBoard?.boardAddress?.address}
+            </S.LocationPopUp>
+          </S.HeaderRightWrapper>
         </S.Header>
         <S.Body>
           <S.Title>{props.data?.fetchBoard?.title}</S.Title>
           <S.Contents>{props.data?.fetchBoard?.contents}</S.Contents>
           <S.YoutubeWrapper>
-            <YouTube videoId={props.data?.fetchBoard?.youtubeUrl?.split("v=")[1]} />
+            <YouTube
+              videoId={props.data?.fetchBoard?.youtubeUrl?.split("v=")[1]}
+            />
           </S.YoutubeWrapper>
         </S.Body>
         <S.Footer>
@@ -32,7 +44,9 @@ export default function BoardDetailUI(props: IBoardDetailUIProps) {
           </S.LikeWrapper>
           <S.DislikeWrapper onClick={props.onClickDislike}>
             <S.DislikeIcon src="/images/board/detail/dislike.svg" />
-            <S.DislikeCount>{props.data?.fetchBoard?.dislikeCount}</S.DislikeCount>
+            <S.DislikeCount>
+              {props.data?.fetchBoard?.dislikeCount}
+            </S.DislikeCount>
           </S.DislikeWrapper>
         </S.Footer>
       </S.CardWrapper>

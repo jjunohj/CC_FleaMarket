@@ -1,8 +1,10 @@
 import styled from "@emotion/styled";
+import type { ILocationPopUpProps } from "./BoardDetail.types";
 
 export const Wrapper = styled.div`
   width: 1200px;
   margin: 100px;
+  position: relative;
 `;
 
 export const CardWrapper = styled.div`
@@ -43,6 +45,49 @@ export const Info = styled.div`
   justify-content: center;
 `;
 
+export const HeaderRightWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+`;
+
+export const Link = styled.img`
+  width: 2rem;
+  height: 2rem;
+  margin: 10px;
+  cursor: pointer;
+`;
+
+export const Location = styled.img`
+  width: 2rem;
+  height: 2rem;
+  margin: 10px;
+  cursor: pointer;
+`;
+
+export const LocationPopUp = styled.div`
+  position: absolute;
+  top: 1rem;
+  right: 8rem;
+  width: 23.5rem;
+  height: 4.5rem;
+  background-image: url("/images/board/detail/addressBox.png");
+  background-size: cover;
+  padding: 0.5rem 1rem;
+  background-position: center;
+  transition: 0.3s ease-out;
+  opacity: ${(props: ILocationPopUpProps) => (props.toggle ? 1 : 0)};
+
+  color: var(--White, #fff);
+  text-align: right;
+  font-family: Noto Sans CJK KR;
+  font-size: 1rem;
+  font-style: normal;
+  font-weight: 400;
+  line-height: normal;
+`;
+
 export const Writer = styled.div``;
 
 export const CreatedAt = styled.div``;
@@ -68,8 +113,6 @@ export const YoutubeWrapper = styled.div`
   align-items: center;
 `;
 
-
-
 export const Footer = styled.div`
   width: 100%;
   padding-top: 100px;
@@ -90,12 +133,12 @@ export const LikeWrapper = styled.div`
 export const LikeIcon = styled.img`
   width: 1.5rem;
   height: 1.5rem;
-  color: var(--main, #FFD600);
-`
+  color: var(--main, #ffd600);
+`;
 
 export const LikeCount = styled.div`
   margin-top: 4px;
-  color: var(--main, #FFD600);
+  color: var(--main, #ffd600);
   text-align: center;
   font-family: Noto Sans CJK KR;
   font-size: 1.125rem;
@@ -116,7 +159,7 @@ export const DislikeIcon = styled.img`
   width: 1.5rem;
   height: 1.5rem;
   color: var(--gray-3, #828282);
-`
+`;
 
 export const DislikeCount = styled.div`
   margin-top: 4px;
@@ -128,8 +171,6 @@ export const DislikeCount = styled.div`
   font-weight: 400;
   line-height: normal;
 `;
-
-
 
 export const BottomWrapper = styled.div`
   display: flex;
