@@ -1,6 +1,7 @@
 import * as S from "./BoardList.styles";
 import { getDate } from "../../../../commons/libraries/utils";
 import type { IBoardListUIProps } from "./BoardList.types";
+import Pagination from "../../../commons/pagination/Pagination.container";
 
 export default function BoardListUI(props: IBoardListUIProps) {
   return (
@@ -25,23 +26,7 @@ export default function BoardListUI(props: IBoardListUIProps) {
         </S.Row>
       ))}
       <S.TableBottom />
-      <S.PageWrapper>
-        <S.PrevPage onClick={props.onClickPrevPage}>&lt;</S.PrevPage>
-        {new Array(10).fill(1).map(
-          (_, index) =>
-            index + props.startPage <= props.endPage && (
-              <S.Page
-                isActive={props.page === index + props.startPage}
-                key={index + props.startPage}
-                id={String(index + props.startPage)}
-                onClick={props.onClickPage}
-              >
-                {index + props.startPage}
-              </S.Page>
-            )
-        )}
-        <S.NextPage onClick={props.onClickNextPage}>&gt;</S.NextPage>
-      </S.PageWrapper>
+      <Pagination totalPage={props.totalPage} refetch={props.refetch} />
       <S.Footer>
         <S.Button onClick={props.onClickMoveToBoardNew}>
           <S.PencilIcon src="/images/board/list/write.png" />
