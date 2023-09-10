@@ -8,7 +8,8 @@ export default function Pagination(props: IPaginationProps) {
   const [page, setPage] = useState(1);
   const [isActive, setIsActive] = useState(false);
 
-  const totalPage = props.totalPage;
+  const totalPage =
+    props.totalPage != null ? Math.ceil(props.totalPage / 10) : 50;
 
   const onClickPage = (event: MouseEvent<HTMLSpanElement>) => {
     void props.refetch({ page: Number(event.currentTarget.id) });

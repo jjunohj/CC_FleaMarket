@@ -9,7 +9,7 @@ export interface IPaginationProps {
   refetch: (
     variables: Partial<IQueryFetchBoardsArgs>
   ) => Promise<ApolloQueryResult<Pick<IQuery, "fetchBoards">>>;
-  totalPage: number;
+  totalPage: number | undefined;
 }
 
 export interface IPaginationUIProps {

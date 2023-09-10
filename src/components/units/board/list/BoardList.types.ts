@@ -7,7 +7,7 @@ import type { ApolloQueryResult } from "@apollo/client";
 
 export interface IBoardListUIProps {
   data?: Pick<IQuery, "fetchBoards">;
-  totalPage: number;
+  totalPage: number | undefined;
   refetch: (
     variables: Partial<IQueryFetchBoardsArgs>
   ) => Promise<ApolloQueryResult<Pick<IQuery, "fetchBoards">>>;
